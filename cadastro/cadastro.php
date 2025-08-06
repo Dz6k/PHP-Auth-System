@@ -19,11 +19,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
         header("Location: ../panel");
         exit;
-
     } catch (PDOException $e) {
         die("Connection error: " . $e->getMessage());
     }
-
-
-
 }
