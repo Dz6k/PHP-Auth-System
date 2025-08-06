@@ -1,4 +1,10 @@
- 
+<?php
+session_start();
+if (!isset($_SESSION['logado'])) {
+    header("Location: ../");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +14,12 @@
 </head>
 <body>
     <h1>
-        Wellcome to Painel Page!
+        Welcome to Panel Page!
     </h1>
+    <div>
+        <a href="/logout">
+            Logout
+        </a>
+    </div>
 </body>
 </html>

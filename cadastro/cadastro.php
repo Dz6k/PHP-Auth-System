@@ -17,7 +17,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([':email' => $email, ':senha' => $password]);
 
-        header("Location: ../painel");
+        header("Location: ../panel");
         exit;
 
     } catch (PDOException $e) {
