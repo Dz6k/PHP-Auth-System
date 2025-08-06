@@ -1,6 +1,24 @@
 <?php
 session_start();
 
+if (isset($_SESSION["logado"]) && $_SESSION["logado"] === true) {
+    header("Location: /panel");
+    exit;
+}
+
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(
+        session_name(),
+        '',
+        time() - 42000,
+        $params["path"],
+        $params["domain"],
+        $params["secure"],
+        $params["httponly"]
+    );
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +27,27 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        // Previne o uso do botão voltar do navegador para acessar a página de login após logout
+        window.onpageshow = function(event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        };
+
+        // Impede o navegador de armazenar esta página no histórico
+        if (window.history && window.history.pushState) {
+            window.history.pushState('forward', null, window.location.href);
+            window.onpopstate = function() {
+                window.history.pushState('forward', null, window.location.href);
+            };
+        }
+    </script>
 
     <title>Auth System</title>
 </head>
