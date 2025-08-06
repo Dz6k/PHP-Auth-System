@@ -14,8 +14,8 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         die("Connection error: " . $e->getMessage());
     }
 
-    $senhaHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $email = $_POST['email'];
+    $senha = $_POST['password'];
     
     $sql = "SELECT senha FROM usuarios WHERE email = :email LIMIT 1";
     
@@ -27,23 +27,22 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     if ($resultado) {
         $senhaBD = $resultado['senha'];
         
-        if ($senhaHash == $senhaBD) {   
+        if (password_verify($senha, $senhaBD)) {   
             // Login bem-sucedido
             $_SESSION['email'] = $email;
-            $_SESSION['password'] = $password;
+            $_SESSION['logado'] = true;
             header("Location: /painel");
-            
-            echo "Login bem-sucedido!";
             exit;
         } else {
             // Senha incorreta
-            echo "Senha incorreta!";
-
+            $_SESSION['erro_credencial'] = "Senha incorreta!";
+            header("Location: /");
+            exit;
         }
     } else {
         $_SESSION['erro_credencial'] = "Email nao encontrado";
         header("Location: /");
-        echo "Email nao encontrado";
+        exit;
     }
 
 }

@@ -3,6 +3,7 @@
 <?php
 session_start();
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,11 +24,13 @@ session_start();
                 <input type="password" placeholder="password" name="password" class="flex p-1 rounded-lg shadow-gray-700/80 shadow-md" required>
                 <div>
                     <?php if (isset($_SESSION['erro_credencial'])): ?>
-                        <p class="pb-1 text-white font-normal ">Email ou senha incorretos</p>
-                        <?php session_unset(); session_destroy();?>
+                        <p class="pb-1 text-white font-normal text-center text-sm"><?= $_SESSION['erro_credencial']; ?></p>
+
+                        <?php session_unset();
+                        session_destroy(); ?>
                     <?php endif; ?>
-                    
-                        
+
+
                     <div class="flex flex-row justify-center gap-2">
                         <button type="submit" class="px-4 flex bg-gray-700 text-white p-1 rounded-lg">Entrar</button>
                         <a href="/cadastro" class="px-4 flex bg-gray-700 text-white p-1 rounded-lg items-center justify-center">Cadastro</a>
