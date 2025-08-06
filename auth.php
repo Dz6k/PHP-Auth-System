@@ -1,12 +1,9 @@
 <?php
+
+
+
 if (isset($_POST['email']) && isset($_POST['password'])) {
     session_start();
-    
-    // Adiciona cabeçalhos para evitar cache
-    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    header("Pragma: no-cache");
-    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 
     try {
         $dsn = 'mysql:host=localhost;dbname=authuser;charset=utf8mb4';
@@ -41,11 +38,9 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             // Senha incorreta
             $_SESSION['erro_credencial'] = "Credenciais invalidas!";
             header("Location: /");
-            exit;
         }
     } else {
         $_SESSION['erro_credencial'] = "Credenciais invalidas!";
         header("Location: /");
-        exit;
     }
 }
