@@ -1,3 +1,9 @@
+<?php
+if (!isset($_SERVER['logado'])) {
+    header("Location: /");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
