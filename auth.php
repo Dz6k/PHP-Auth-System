@@ -27,7 +27,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $senhaBD = $resultado['senha'];
 
         if (password_verify($_POST['password'], $senhaBD)) {
-            // Login bem-sucedido
             $_SESSION['email'] = $email;
             $_SESSION['logado'] = true;
 
@@ -35,7 +34,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
             exit;
         } else {
-            // Senha incorreta
             $_SESSION['erro_credencial'] = "Credenciais invalidas!";
             header("Location: /");
         }

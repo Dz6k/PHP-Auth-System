@@ -5,8 +5,6 @@ if (isset($_SESSION["logado"]) && $_SESSION["logado"] === true) {
     header("Location: /panel");
     exit;
 }
- 
-
 ?>
 
 <!DOCTYPE html>
@@ -19,24 +17,6 @@ if (isset($_SESSION["logado"]) && $_SESSION["logado"] === true) {
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        // Previne o uso do botão voltar do navegador para acessar a página de login após logout
-        window.onpageshow = function(event) {
-            if (event.persisted) {
-                window.location.reload();
-            }
-        };
-
-        // Impede o navegador de armazenar esta página no histórico
-        if (window.history && window.history.pushState) {
-            window.history.pushState('forward', null, window.location.href);
-            window.onpopstate = function() {
-                window.history.pushState('forward', null, window.location.href);
-            };
-        }
-    </script>
-
     <title>Auth System</title>
 </head>
 
